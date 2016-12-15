@@ -12,10 +12,10 @@ class SvgSpriteCompiler {
     this.dirty = false;
   }
 
-  compile(file) {
+  compile(data, file, callback) {
     this.dirty = true;
-    this.files[file.path] = file.data;
-    return Promise.resolve({data: ''});
+    this.files[file] = data;
+    return callback(null, null);
   }
 
   onCompile(files) {
