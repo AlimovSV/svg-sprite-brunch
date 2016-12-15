@@ -1,0 +1,18 @@
+{
+  "name": "svg-sprite-brunch",
+  "version": "0.0.1",
+  "description": "Adds svg-sprite support to brunch.",
+  "author": "Sergey V. Alimov",
+  "license": "MIT",
+  "keywords": [
+    "brunch",
+    "brunch-plugin",
+    "brunch-compiler",
+    "svg-sprite",
+    "svg"
+  ],
+  "dependencies": {
+    "mkdirp": "^0.5.1",
+    "svg-sprite": "^1.3.6"
+  }
+}
