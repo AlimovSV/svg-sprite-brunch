@@ -1,6 +1,6 @@
 {
   "name": "svg-sprite-brunch",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Adds svg-sprite support to brunch.",
   "author": "Sergey V. Alimov",
   "license": "MIT",

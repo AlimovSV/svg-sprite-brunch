@@ -19,26 +19,39 @@ class SvgSpriteCompiler {
   }
 
   onCompile(files) {
-    if (!this.dirty) {
-      return;
-    }
-
     var spriter = null;
 
     for (var file in this.files) {
       if (fs.existsSync(file)) {
         (spriter || (spriter = new SVGSpriter(this.config))).add(path.resolve(file), null, this.files[file]);
+      } else {
+        delete this.files[file];
+        // Force compilation
+        this.dirty = true;
       }
     }
 
-    spriter && spriter.compile(function(error, result) {
-      for (var mode in result) {
-        for (var resource in result[mode]) {
-          mkdirp.sync(path.dirname(result[mode][resource].path));
-          fs.writeFileSync(result[mode][resource].path, result[mode][resource].contents);
+    if (spriter && this.dirty) {
+      spriter.compile(function(error, result) {
+        for (var mode in result) {
+          for (var resource in result[mode]) {
+            mkdirp.sync(path.dirname(result[mode][resource].path));
+            fs.writeFileSync(result[mode][resource].path, result[mode][resource].contents);
+          }
         }
+      });
+    } else if (this.dirty) {
+      // There are no SVG files, remove sprite
+      var symbol = this.config.mode.symbol;
+      var file = path.resolve(symbol.dest, symbol.sprite);
+      if (fs.existsSync(file)) {
+        fs.unlinkSync(file);
       }
-    });
+    } else {
+      return;
+    }
+
+    this.dirty = false;
   }
 }
 
