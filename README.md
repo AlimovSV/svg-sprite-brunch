@@ -35,3 +35,6 @@ module.exports = {
   }
 }
 ```
+
+### Example
+[svg-sprite-brunch-example](https://github.com/AlimovSV/svg-sprite-brunch-example)
